@@ -13,10 +13,10 @@ In theory, this is all you need to do to start using Nose for unit testing and g
 
 For example, if you want to replace the allure log directory:
 
-  @init
-  def init(project):
-    project.set_property('nose_logdir', '/path/to/logdir')
+    @init
+      def init(project):
+      project.set_property('nose_logdir', '/path/to/logdir')
 
 This is equivalent to running
 
-   $ nodetests --html-coverage-dir=/path/to/html
+    $ nosetests --logdir=/path/to/logdir
