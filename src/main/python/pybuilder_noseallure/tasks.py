@@ -71,3 +71,29 @@ def run_unit_tests(project, logger):
     if noseProc.returncode != 0:
         logger.error('Unit tests failed with exit code %s' % noseProc.returncode)
         raise BuildFailedException('Unit tests did not pass')
+    
+@task('generate_report')
+@description('Generate Allure report for the unit tests run via nose')
+@depends('run_unit_tests')
+def generate_report(project, logger):
+    # set cwd to project root
+    test_dir,log_dir = getImportantDirs(project)
+
+    logger.debug("Log dir: %s" % log_dir) 
+    
+    allureEnv = os.environ.copy()
+    cwd = os.getcwd()
+    project_main_path = cwd
+    allureEnv["PYTHONPATH"] = project_main_path
+    
+    #Generate Allure Report folder
+    args = ['allure', 'generate', log_dir, '--clean']
+  
+    allureProc = subprocess.Popen(args, stdout=subprocess.PIPE, env=allureEnv, shell=True)
+  
+    while allureProc.poll() is None:
+        l = allureProc.stdout.readline()
+        logger.debug(l)
+  
+    if allureProc.returncode != 0:
+        logger.warn('Allure report generation failed with exit code %s' % allureProc.returncode)
