@@ -71,5 +71,3 @@ def run_unit_tests(project, logger):
     if noseProc.returncode != 0:
         logger.error('Unit tests failed with exit code %s' % noseProc.returncode)
         raise BuildFailedException('Unit tests did not pass')
-
-
