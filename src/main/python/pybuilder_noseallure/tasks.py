@@ -56,16 +56,10 @@ def run_unit_tests(project, logger):
     for arg in args:
         logger.info('Nose arg: %s' % arg)
 
-    '''
-        ANUKUL: Potential bug here, fix in 0.0.4:
-            1. noseEnv set to src.unittest.python
-            2. Idea is in the unit tests, test project classes would be imported using src.main.python...
-            3. Otherwise, we will face infamous ImportError
-    '''
     noseEnv = os.environ.copy()
     cwd = os.getcwd()
-    project_root_path = cwd
-    noseEnv["PYTHONPATH"] = project_root_path
+    project_main_path = cwd + "\\src\\main\\python"
+    noseEnv["PYTHONPATH"] = project_main_path
 
     logger.info("Launching nosetests")
     noseProc = subprocess.Popen(args, stdout=subprocess.PIPE, env=noseEnv)
