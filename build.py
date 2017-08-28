@@ -15,7 +15,7 @@ use_plugin("python.install_dependencies")
 use_plugin("python.distutils")
 
 name = "pybuilder-noseallure"
-version = '0.0.3'
+version = '0.0.4'
 
 authors = [Author('Anukul Singhal','anukul.singhal@gmail.com')]
 url = 'https://github.com/anukuls/pybuilder_noseallure'
